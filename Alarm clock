@@ -1,0 +1,27 @@
+import datetime
+import time
+import pyttsx3
+engine = pyttsx3.init()
+
+def speak(text):
+   voices = engine.getProperty('voices')
+   engine.setProperty('voice', voices[0].id)
+   engine.say(text)
+   engine.runAndWait()
+
+alarm_time = input("Enter the time for the alarm (in HH:MM format): ")
+alarm_hour = alarm_time.split(":")[0]
+alarm_minute = alarm_time.split(":")[1]
+
+while True:
+  now = datetime.datetime.now()
+  current_hour = now.strftime("%H")
+  current_minute = now.strftime("%M")
+
+  # Check time before sleep
+  if current_hour == alarm_hour and current_minute == alarm_minute:
+    print("Wake up! It's time to wake up!")
+    speak("It's time to wake up!")
+    break
+
+  time.sleep(60)  # Sleep for 1 minute
